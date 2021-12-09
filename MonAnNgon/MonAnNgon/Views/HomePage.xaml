@@ -3,12 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MonAnNgon.Views.HomePage"
              Title="Trang Chủ">
-    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Example Item"
+                 IconImageSource="icon_about.png"
+                 Order="Primary"
+                 Priority="0" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms! helllo"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <RelativeLayout BackgroundColor="#E2E2E2" HeightRequest="210">
+                <Image Source="banner.jpg" Aspect="AspectFill"/>
+                <StackLayout BackgroundColor="#E2E2E2" TranslationY="165" Opacity=".6" Padding="10,5,10,5" MinimumWidthRequest="100">
+                    <Label XAlign="Center" TextColor="Black" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Text="If you have feedback / comments or want to&#10;report a problem please contact us"/>
+                </StackLayout>
+            </RelativeLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
