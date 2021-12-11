@@ -5,21 +5,45 @@
              Title="Trang Chủ">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Example Item"
-                 IconImageSource="icon_about.png"
+                 IconImageSource="search_24px.png"
                  Order="Primary"
                  Priority="0" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms! helllo"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <RelativeLayout BackgroundColor="#E2E2E2" HeightRequest="210">
-                <Image Source="banner.jpg" Aspect="AspectFill"/>
-                <StackLayout BackgroundColor="#E2E2E2" TranslationY="165" Opacity=".6" Padding="10,5,10,5" MinimumWidthRequest="100">
-                    <Label XAlign="Center" TextColor="Black" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Text="If you have feedback / comments or want to&#10;report a problem please contact us"/>
-                </StackLayout>
-            </RelativeLayout>
+            <ScrollView>
+                <FlexLayout BindableLayout.ItemsSource="{Binding ItemsLayout}" 
+                   Wrap="Wrap"
+                   Direction="Row"
+                   JustifyContent="Start"
+                   AlignItems="Start"
+                   AlignContent="Start"
+                   Padding="8"
+                   x:Name="flexLayout">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="4,4,4,4"
+                              FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}"
+                              FlexLayout.AlignSelf="Start">
+                                <Frame 
+                                    Padding="0"
+                                    VerticalOptions="Start"
+                                    HasShadow="True">
+                                    <Grid Padding="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="{Binding img}" Aspect="AspectFill"/>
+                                        <Label Grid.Row="1" Margin="10,0" Text="{Binding name}"/>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>
