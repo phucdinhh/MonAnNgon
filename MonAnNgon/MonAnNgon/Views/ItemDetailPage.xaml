@@ -1,14 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:MonAnNgon.ViewModels" 
+             xmlns:model="clr-namespace:MonAnNgon.Models"
              x:Class="MonAnNgon.Views.ItemDetailPage"
-             Title="{Binding Title}">
+             Title="{Binding Name}">
 
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
-    </StackLayout>
-    
+    <ScrollView Orientation="Vertical">
+        <StackLayout Spacing="20" Padding="15">
+            <StackLayout>
+                <Image Source="{Binding Image}" HeightRequest="250" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
+            </StackLayout>
+
+            <Label Text="Nguyên liệu:" FontSize="Medium"/>
+            <Label x:Name="ingredient" Text="{Binding Ingredient}" FontSize="Medium"/>
+            <Label Text="Cách nấu:" FontSize="Medium" />
+            <Label x:Name="description" Text="{Binding Description}" FontSize="Medium"/>
+
+            <Label Text="Các món ăn tương tự:" FontSize="Medium" />
+            <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Items}"
+                SelectionMode="None"
+                >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="20,10,20,10" x:DataType="model:Item" >
+                            <Frame>
+                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                    <Image Source="{Binding Image}" WidthRequest="70"/>
+                                    <Label Text="{Binding Name}" 
+                                    LineBreakMode="NoWrap" 
+                                    Style="{DynamicResource ListItemTextStyle}" 
+                                    FontSize="16" 
+                                    VerticalOptions="Center"
+                                    TextColor="Purple"
+                                    Margin="10,0,0,0"/>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:RelatedItemsViewModel}}, Path=ItemTapped}"		
+                                        CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+
 </ContentPage>

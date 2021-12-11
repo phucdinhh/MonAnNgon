@@ -10,20 +10,34 @@ namespace MonAnNgon.ViewModels
     public class ItemDetailViewModel : BaseViewModel
     {
         private string itemId;
-        private string text;
+        private string name;
+        private string ingredient;
         private string description;
+        private string image;
         public string Id { get; set; }
 
-        public string Text
+        public string Name
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => name;
+            set => SetProperty(ref name, value);
+        }
+
+        public string Ingredient
+        {
+            get => ingredient;
+            set => SetProperty(ref ingredient, value);
         }
 
         public string Description
         {
             get => description;
             set => SetProperty(ref description, value);
+        }
+
+        public string Image
+        {
+            get => image;
+            set => SetProperty(ref image, value);
         }
 
         public string ItemId
@@ -45,8 +59,10 @@ namespace MonAnNgon.ViewModels
             {
                 var item = await DataStore.GetItemAsync(itemId);
                 Id = item.Id;
-                Text = item.Text;
+                Ingredient = item.Ingredient;
+                Name = item.Name;
                 Description = item.Description;
+                Image = item.Image;
             }
             catch (Exception)
             {

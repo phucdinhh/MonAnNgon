@@ -1,14 +1,16 @@
 ﻿using MonAnNgon.Models;
 using MonAnNgon.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MonAnNgon.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class RelatedItemsViewModel : BaseViewModel
     {
         private Item _selectedItem;
 
@@ -17,9 +19,8 @@ namespace MonAnNgon.ViewModels
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
 
-        public ItemsViewModel()
+        public RelatedItemsViewModel()
         {
-            Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -35,7 +36,7 @@ namespace MonAnNgon.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await DataStore.GetRelatedItemsAsync(true);
                 foreach (var item in items)
                 {
                     Items.Add(item);
