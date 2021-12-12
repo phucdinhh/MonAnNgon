@@ -10,7 +10,7 @@ namespace MonAnNgon.ViewModels
     public class NewItemViewModel : BaseViewModel
     {
         private string name;
-        private string description;
+        private string instruction;
 
         public NewItemViewModel()
         {
@@ -23,7 +23,7 @@ namespace MonAnNgon.ViewModels
         private bool ValidateSave()
         {
             return !String.IsNullOrWhiteSpace(name)
-                && !String.IsNullOrWhiteSpace(description);
+                && !String.IsNullOrWhiteSpace(instruction);
         }
 
         public string Name
@@ -32,10 +32,10 @@ namespace MonAnNgon.ViewModels
             set => SetProperty(ref name, value);
         }
 
-        public string Description
+        public string Instruction
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => instruction;
+            set => SetProperty(ref instruction, value);
         }
 
         public Command SaveCommand { get; }
@@ -49,11 +49,11 @@ namespace MonAnNgon.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            Food newItem = new Food()
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = Name,
-                Description = Description
+                Instruction = Instruction
             };
 
             await DataStore.AddItemAsync(newItem);

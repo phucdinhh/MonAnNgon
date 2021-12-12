@@ -1,27 +1,21 @@
-﻿using MonAnNgon.ViewModels;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace MonAnNgon.Views
 {
-    public partial class ItemDetailPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class Test : ContentPage
     {
-        public ItemDetailViewModel test;
-
-        public ItemDetailPage()
+        public Test()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-        }
-
         private void Tab1Clicked(object sender, EventArgs e)
         {
             Tab1.BackgroundColor = Color.FromHex("#2196F3");

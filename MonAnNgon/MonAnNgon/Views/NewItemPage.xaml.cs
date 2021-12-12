@@ -10,7 +10,7 @@ namespace MonAnNgon.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public Food Food { get; set; }
 
         public NewItemPage()
         {

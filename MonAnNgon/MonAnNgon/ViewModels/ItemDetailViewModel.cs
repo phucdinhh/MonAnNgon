@@ -1,5 +1,7 @@
 ﻿using MonAnNgon.Models;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -12,8 +14,9 @@ namespace MonAnNgon.ViewModels
         private string itemId;
         private string name;
         private string ingredient;
-        private string description;
+        private string instruction;
         private string image;
+
         public string Id { get; set; }
 
         public string Name
@@ -28,10 +31,10 @@ namespace MonAnNgon.ViewModels
             set => SetProperty(ref ingredient, value);
         }
 
-        public string Description
+        public string Instruction
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => instruction;
+            set => SetProperty(ref instruction, value);
         }
 
         public string Image
@@ -39,6 +42,8 @@ namespace MonAnNgon.ViewModels
             get => image;
             set => SetProperty(ref image, value);
         }
+
+        public ObservableCollection<Food> Relateds { get; set; }
 
         public string ItemId
         {
@@ -55,19 +60,38 @@ namespace MonAnNgon.ViewModels
 
         public async void LoadItemId(string itemId)
         {
+            IsBusy = true;
+
             try
             {
                 var item = await DataStore.GetItemAsync(itemId);
                 Id = item.Id;
-                Ingredient = item.Ingredient;
+                Ingredient = item.Ingredients;
                 Name = item.Name;
-                Description = item.Description;
+                Instruction = item.Instruction;
                 Image = item.Image;
+                Relateds.Clear();
+                var relatedFoods = await DataStore.GetItemsAsync(true);
+                foreach (var relatedFood in relatedFoods)
+                {
+                    if (Relateds.Count <= 5 && item.Id != relatedFood.Id)
+                    {
+                        Relateds.Add(relatedFood);
+                    }
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed to Load Item");
+                Debug.WriteLine(ex);
             }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public ItemDetailViewModel()
+        {
+            Relateds = new ObservableCollection<Food>();
         }
     }
 }

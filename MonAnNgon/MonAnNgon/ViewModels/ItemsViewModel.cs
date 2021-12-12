@@ -10,22 +10,24 @@ namespace MonAnNgon.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private Food _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        private int tapCount { get; set; }
+        public ObservableCollection<Food> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<Food> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<Food>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<Food>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
+            tapCount = 0;
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -57,7 +59,7 @@ namespace MonAnNgon.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public Food SelectedItem
         {
             get => _selectedItem;
             set
@@ -72,13 +74,16 @@ namespace MonAnNgon.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(Food item)
         {
-            if (item == null)
+            if (item == null || tapCount > 0)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
+            tapCount++;
             await Shell.Current.GoToAsync($"{nameof(Views.ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            tapCount--;
         }
+
     }
 }

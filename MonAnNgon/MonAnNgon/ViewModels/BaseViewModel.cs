@@ -2,53 +2,36 @@
 using MonAnNgon.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Text;
 using Xamarin.Forms;
 
 namespace MonAnNgon.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : MVVM.BindableBase
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        private bool _isBusy;
+        private string _title;
 
-        bool isBusy = false;
-        public bool IsBusy
-        {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
-        }
+        public IDataStore<Food> DataStore => DependencyService.Get<IDataStore<Food>>();
 
-        string title = string.Empty;
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName] string propertyName = "",
-            Action onChanged = null)
+        public bool IsBusy
         {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-                return false;
-
-            backingStore = value;
-            onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
-            return true;
+            get => _isBusy;
+            set
+            {
+                if (SetProperty(ref _isBusy, value))
+                {
+                    RaisePropertyChanged(nameof(IsNotBusy));
+                }
+            }
         }
 
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            var changed = PropertyChanged;
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
+        public bool IsNotBusy => !IsBusy;
     }
 }

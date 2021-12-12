@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MonAnNgon.Models
 {
-    public class food
+    public class Food
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string img { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Ingredients { get; set; }
+        public string Instruction { get; set; }
+        public string Image { get; set; }
     }
 }

@@ -15,21 +15,21 @@ namespace MonAnNgon.Views
     public partial class HomePage : ContentPage
     {
 
-        public ObservableCollection<food> ItemsLayout { get; set; }
+        public ObservableCollection<Category> ItemsLayout { get; set; }
 
         public HomePage()
         {
             InitializeComponent();
-            ItemsLayout = new ObservableCollection<food>
+            ItemsLayout = new ObservableCollection<Category>
             {
-                new food { id = "1", name = "Bánh", img = "CanhThinhDuDu.jpg" },
-                new food { id = "2", name = "Chiên Xào", img = "green_spinach.jpg" },
-                new food { id = "3", name = "Nướng", img = "ot_chuong_hai_san.jpg" },
-                new food { id = "4", name = "Kho", img = "salad.jpg" },
-                new food { id = "4", name = "Kho", img = "salad.jpg" },
-                new food { id = "2", name = "Chiên Xào", img = "green_spinach.jpg" },
-                new food { id = "3", name = "Nướng", img = "ot_chuong_hai_san.jpg" },
-                new food { id = "4", name = "Kho", img = "salad.jpg" },
+                new Category { id = "1", name = "Bánh", img = "CanhThinhDuDu.jpg" },
+                new Category { id = "2", name = "Chiên Xào", img = "green_spinach.jpg" },
+                new Category { id = "3", name = "Nướng", img = "ot_chuong_hai_san.jpg" },
+                new Category { id = "4", name = "Kho", img = "salad.jpg" },
+                new Category { id = "4", name = "Kho", img = "salad.jpg" },
+                new Category { id = "2", name = "Chiên Xào", img = "green_spinach.jpg" },
+                new Category { id = "3", name = "Nướng", img = "ot_chuong_hai_san.jpg" },
+                new Category { id = "4", name = "Kho", img = "salad.jpg" },
             };
             BindingContext = this;
         }

@@ -2,53 +2,131 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:MonAnNgon.ViewModels" 
-             xmlns:model="clr-namespace:MonAnNgon.Models"
+             xmlns:model="clr-namespace:MonAnNgon.Models" x:DataType="local:ItemDetailViewModel"
              x:Class="MonAnNgon.Views.ItemDetailPage"
              Title="{Binding Name}">
+    
+    <ScrollView>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-    <ScrollView Orientation="Vertical">
-        <StackLayout Spacing="20" Padding="15">
-            <StackLayout>
-                <Image Source="{Binding Image}" HeightRequest="250" VerticalOptions="FillAndExpand" Aspect="AspectFill"/>
+            <StackLayout  Grid.Row="0" Grid.Column="0" Padding="12, 0">
+                <Image
+                    Source="{Binding Image}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand" 
+                    Aspect="AspectFit" />
+            </StackLayout>
+            <StackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="End" Padding="10" Margin="12, 0"
+                         HorizontalOptions="FillAndExpand"  BackgroundColor="#80000000" Opacity="0.6">
+                <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" 
+                        TextColor="White" HorizontalTextAlignment="Center" 
+                        VerticalTextAlignment="Center" />
             </StackLayout>
 
-            <Label Text="Nguyên liệu:" FontSize="Medium"/>
-            <Label x:Name="ingredient" Text="{Binding Ingredient}" FontSize="Medium"/>
-            <Label Text="Cách nấu:" FontSize="Medium" />
-            <Label x:Name="description" Text="{Binding Description}" FontSize="Medium"/>
+            <!--Tab Design-->
+            <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                <Grid HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    ColumnSpacing="0"
+                    RowSpacing="0"
+                    Padding="30, 0"
+                    Margin="0, 0, 0, 20">
 
-            <Label Text="Các món ăn tương tự:" FontSize="Medium" />
-            <CollectionView x:Name="ItemsListView"
-                ItemsSource="{Binding Items}"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!--Details Tab-->
+
+                    <StackLayout Grid.Row="0"
+                     x:Name="Tab1"
+                     Grid.Column="0"
+                     Padding="0, 0, 0, 4"
+                     VerticalOptions="FillAndExpand"
+                     BackgroundColor="{StaticResource Primary}">
+                        <Button Clicked="Tab1Clicked" Text="Nguyên liệu" TextColor="Gray" BackgroundColor="White" CornerRadius="0"
+                                FontSize="13" FontAttributes="Bold" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                    </StackLayout>
+
+                    <!-- Tab 2 -->
+                    <StackLayout Grid.Row="0"
+                     x:Name="Tab2"
+                     Grid.Column="1"
+                     Padding="0, 0, 0, 4"
+                     VerticalOptions="FillAndExpand">
+                        <Button Clicked="Tab2Clicked" Text="Các bước" TextColor="Gray" BackgroundColor="White" CornerRadius="0"
+                                FontSize="13" FontAttributes="Bold" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                    </StackLayout>
+
+                    <!-- Tab 3 -->
+                    <StackLayout Grid.Row="0"
+                     x:Name="Tab3"
+                     Grid.Column="2"
+                     Padding="0, 0, 0, 4"
+                     VerticalOptions="FillAndExpand">
+                        <Button Clicked="Tab3Clicked" Text="Món ăn khác" TextColor="Gray" BackgroundColor="White" CornerRadius="0"
+                                FontSize="13" FontAttributes="Bold" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+
+            <!-- tab 1 container -->
+            <StackLayout x:Name="stkTab1" Grid.Row="2" Grid.Column="0"
+                         Padding="30, 0, 30, 20">
+                <Label x:Name="ingredient" Text="{Binding Ingredient}" FontSize="Small"/>
+            </StackLayout>
+
+            <!-- tab 2 container -->
+            <StackLayout x:Name="stkTab2" IsVisible="false" Grid.Row="2" 
+                   Padding="30, 0, 30, 20" Grid.Column="0">
+                <Label x:Name="description" Text="{Binding Instruction}" FontSize="Small"/>
+            </StackLayout>
+
+            <!-- tab 3 container -->
+            <StackLayout x:Name="stkTab3" IsVisible="false" Grid.Row="2"
+                   Padding="30, 0" Grid.Column="0">
+                <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Relateds}"
                 SelectionMode="None"
                 >
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Padding="20,10,20,10" x:DataType="model:Item" >
-                            <Frame>
-                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                    <Image Source="{Binding Image}" WidthRequest="70"/>
-                                    <Label Text="{Binding Name}" 
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="5,10,5,10" x:DataType="model:Food" >
+                                <Frame>
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Image Source="{Binding Image}" WidthRequest="70"/>
+                                        <Label Text="{Binding Name}" 
                                     LineBreakMode="NoWrap" 
                                     Style="{DynamicResource ListItemTextStyle}" 
                                     FontSize="16" 
                                     VerticalOptions="Center"
                                     TextColor="Purple"
                                     Margin="10,0,0,0"/>
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer 
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer 
                                         NumberOfTapsRequired="1"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type local:RelatedItemsViewModel}}, Path=ItemTapped}"		
                                         CommandParameter="{Binding .}">
-                                        </TapGestureRecognizer>
-                                    </StackLayout.GestureRecognizers>
-                                </StackLayout>
-                            </Frame>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
+                                            </TapGestureRecognizer>
+                                        </StackLayout.GestureRecognizers>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Grid>
     </ScrollView>
-
 </ContentPage>
