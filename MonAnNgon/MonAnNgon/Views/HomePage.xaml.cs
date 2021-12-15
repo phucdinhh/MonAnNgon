@@ -30,8 +30,17 @@ namespace MonAnNgon.Views
                 new Category { id = "2", name = "Chiên Xào", img = "green_spinach.jpg" },
                 new Category { id = "3", name = "Nướng", img = "ot_chuong_hai_san.jpg" },
                 new Category { id = "4", name = "Kho", img = "salad.jpg" },
+                new Category { id = "4", name = "Kho", img = "salad.jpg" },
+                new Category { id = "2", name = "Chiên Xào", img = "green_spinach.jpg" },
+                new Category { id = "3", name = "Nướng", img = "ot_chuong_hai_san.jpg" },
+                new Category { id = "4", name = "Kho", img = "salad.jpg" },
             };
             BindingContext = this;
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SearchPage());
         }
     }
 }

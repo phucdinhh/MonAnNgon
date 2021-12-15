@@ -7,7 +7,8 @@
         <ToolbarItem Text="Example Item"
                  IconImageSource="search_24px.png"
                  Order="Primary"
-                 Priority="0" />
+                 Priority="0" 
+                 Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
@@ -28,14 +29,15 @@
                                 <Frame 
                                     Padding="0"
                                     VerticalOptions="Start"
-                                    HasShadow="True">
+                                    HasShadow="True"
+                                    HeightRequest="160">
                                     <Grid Padding="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         <Image Source="{Binding img}" Aspect="AspectFill"/>
-                                        <Label Grid.Row="1" Margin="10,0" Text="{Binding name}"/>
+                                        <Label Grid.Row="1" Margin="10,0" Text="{Binding name}" FontAttributes="Bold" FontSize="Large" HorizontalTextAlignment="Center"/>
                                     </Grid>
                                 </Frame>
                             </Grid>
@@ -44,6 +46,5 @@
                 </FlexLayout>
             </ScrollView>
         </StackLayout>
-        
     </ContentPage.Content>
 </ContentPage>
