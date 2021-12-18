@@ -13,6 +13,7 @@ namespace MonAnNgon
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(Views.ItemDetailPage), typeof(Views.ItemDetailPage));
+            Routing.RegisterRoute(nameof(Views.FoodsPage), typeof(Views.FoodsPage));
         }
 
         private async void OnShareItemClicked(object sender, EventArgs e)

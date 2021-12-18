@@ -16,6 +16,11 @@ namespace MonAnNgon.Models
         [JsonProperty("foodCount")]
         public object FoodCount { get; set; }
 
+        [JsonProperty("image")]
+        public Media Image { get; set; }
+
+        public string ImageUrl => "http://172.19.0.1:1337" + Image.Url;
+
         [JsonProperty("createdAt")]
         public DateTimeOffset CreatedAt { get; set; }
 
