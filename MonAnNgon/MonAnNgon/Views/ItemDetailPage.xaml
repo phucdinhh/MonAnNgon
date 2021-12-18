@@ -5,7 +5,7 @@
              xmlns:model="clr-namespace:MonAnNgon.Models" x:DataType="local:ItemDetailViewModel"
              x:Class="MonAnNgon.Views.ItemDetailPage"
              Title="{Binding Name}">
-    
+
     <ScrollView>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
@@ -14,15 +14,16 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <StackLayout  Grid.Row="0" Grid.Column="0" Padding="12, 0">
+            <StackLayout Grid.Row="0" Grid.Column="0" Padding="12, 0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
                 <Image
-                    Source="{Binding Image}"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand" 
-                    Aspect="AspectFit" />
+                    Source="{Binding ImageUrl}"
+                    HeightRequest="250"
+                    Aspect="AspectFill" />
             </StackLayout>
             <StackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="End" Padding="10" Margin="12, 0"
-                         HorizontalOptions="FillAndExpand"  BackgroundColor="#80000000" Opacity="0.6">
+                         HorizontalOptions="FillAndExpand"  BackgroundColor="#80000000" Opacity="0.9">
                 <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" 
                         TextColor="White" HorizontalTextAlignment="Center" 
                         VerticalTextAlignment="Center" />
@@ -84,13 +85,13 @@
             <!-- tab 1 container -->
             <StackLayout x:Name="stkTab1" Grid.Row="2" Grid.Column="0"
                          Padding="30, 0, 30, 20">
-                <Label x:Name="ingredient" Text="{Binding Ingredient}" FontSize="Small"/>
+                <Label Text="{Binding Ingredient}" FontSize="Small" TextType="Html" LineHeight="1.5" />
             </StackLayout>
 
             <!-- tab 2 container -->
             <StackLayout x:Name="stkTab2" IsVisible="false" Grid.Row="2" 
                    Padding="30, 0, 30, 20" Grid.Column="0">
-                <Label x:Name="description" Text="{Binding Instruction}" FontSize="Small"/>
+                <Label Text="{Binding Instruction}" FontSize="Small" TextType="Html" LineHeight="1.5" />
             </StackLayout>
 
             <!-- tab 3 container -->

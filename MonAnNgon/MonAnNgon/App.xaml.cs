@@ -13,7 +13,7 @@ namespace MonAnNgon
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<AppDataStore>();
             MainPage = new AppShell();
         }
 

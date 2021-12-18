@@ -36,7 +36,7 @@ namespace MonAnNgon.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetRelatedItemsAsync(true);
+                var items = await DataStore.GetRelatedItemsAsync();
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -68,9 +68,8 @@ namespace MonAnNgon.ViewModels
             }
         }
 
-        private async void OnAddItem(object obj)
+        private void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
         async void OnItemSelected(Food item)

@@ -12,7 +12,7 @@ namespace MonAnNgon.ViewModels
         private bool _isBusy;
         private string _title;
 
-        public IDataStore<Food> DataStore => DependencyService.Get<IDataStore<Food>>();
+        public AppDataStore DataStore => DependencyService.Get<AppDataStore>();
 
         public string Title
         {

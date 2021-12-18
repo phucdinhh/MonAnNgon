@@ -11,13 +11,14 @@ namespace MonAnNgon.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
-        private string itemId;
+        private long itemId;
         private string name;
         private string ingredient;
         private string instruction;
-        private string image;
+        private Media[] image;
+        private string imageUrl;
 
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         public string Name
         {
@@ -37,15 +38,21 @@ namespace MonAnNgon.ViewModels
             set => SetProperty(ref instruction, value);
         }
 
-        public string Image
+        public Media[] Image
         {
             get => image;
             set => SetProperty(ref image, value);
         }
 
+        public string ImageUrl
+        {
+            get => imageUrl;
+            set => SetProperty(ref imageUrl, value);
+        }
+
         public ObservableCollection<Food> Relateds { get; set; }
 
-        public string ItemId
+        public long ItemId
         {
             get
             {
@@ -58,7 +65,7 @@ namespace MonAnNgon.ViewModels
             }
         }
 
-        public async void LoadItemId(string itemId)
+        public async void LoadItemId(long itemId)
         {
             IsBusy = true;
 
@@ -70,6 +77,7 @@ namespace MonAnNgon.ViewModels
                 Name = item.Name;
                 Instruction = item.Instruction;
                 Image = item.Image;
+                ImageUrl = item.ImageUrl;
                 Relateds.Clear();
                 var relatedFoods = await DataStore.GetItemsAsync(true);
                 foreach (var relatedFood in relatedFoods)

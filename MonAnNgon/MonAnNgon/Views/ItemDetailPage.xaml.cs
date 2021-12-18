@@ -24,7 +24,7 @@ namespace MonAnNgon.Views
 
         private void Tab1Clicked(object sender, EventArgs e)
         {
-            Tab1.BackgroundColor = Color.FromHex("#2196F3");
+            Tab1.BackgroundColor = Color.FromHex("#7c1ca0");
             Tab2.BackgroundColor = Color.White;
             Tab3.BackgroundColor = Color.White;
             stkTab1.IsVisible = true;
@@ -35,7 +35,7 @@ namespace MonAnNgon.Views
         private void Tab2Clicked(object sender, EventArgs e)
         {
             Tab1.BackgroundColor = Color.White;
-            Tab2.BackgroundColor = Color.FromHex("#2196F3");
+            Tab2.BackgroundColor = Color.FromHex("#7c1ca0");
             Tab3.BackgroundColor = Color.White;
             stkTab1.IsVisible = false;
             stkTab2.IsVisible = true;
@@ -46,7 +46,7 @@ namespace MonAnNgon.Views
         {
             Tab1.BackgroundColor = Color.White;
             Tab2.BackgroundColor = Color.White;
-            Tab3.BackgroundColor = Color.FromHex("#2196F3");
+            Tab3.BackgroundColor = Color.FromHex("#7c1ca0");
             stkTab1.IsVisible = false;
             stkTab2.IsVisible = false;
             stkTab3.IsVisible = true;

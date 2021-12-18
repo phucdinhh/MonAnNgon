@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace MonAnNgon.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TabbedPage1 : TabbedPage
+    public partial class FlyoutHeader : ContentView
     {
-        public TabbedPage1()
+        public FlyoutHeader()
         {
             InitializeComponent();
         }

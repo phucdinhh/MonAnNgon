@@ -15,6 +15,7 @@ namespace MonAnNgon.ViewModels
         private int tapCount { get; set; }
         public ObservableCollection<Food> Items { get; }
         public Command LoadItemsCommand { get; }
+        public Command LoadItemsIncrementally { get; }
         public Command AddItemCommand { get; }
         public Command<Food> ItemTapped { get; }
 
@@ -23,6 +24,7 @@ namespace MonAnNgon.ViewModels
             Title = "Browse";
             Items = new ObservableCollection<Food>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadItemsIncrementally = new Command(async () => await ExecuteLoadItemsIncrementallyCommand());
 
             ItemTapped = new Command<Food>(OnItemSelected);
 
@@ -53,6 +55,25 @@ namespace MonAnNgon.ViewModels
             }
         }
 
+        async Task ExecuteLoadItemsIncrementallyCommand()
+        {
+            try
+            {
+                if (IsBusy || Items.Count == 0)
+                    return;
+
+                var items = await DataStore.LoadMoreItemsAsync();
+                foreach (var item in items)
+                {
+                    Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
         public void OnAppearing()
         {
             IsBusy = true;
@@ -69,9 +90,8 @@ namespace MonAnNgon.ViewModels
             }
         }
 
-        private async void OnAddItem(object obj)
+        private void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
         async void OnItemSelected(Food item)

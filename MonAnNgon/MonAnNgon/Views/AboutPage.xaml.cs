@@ -12,9 +12,8 @@ namespace MonAnNgon.Views
             InitializeComponent();
         }
 
-        async void Button_Clicked(object sender, EventArgs e)
+        void Button_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TabbedPage1());
         }
     }
 }
