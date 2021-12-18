@@ -11,28 +11,35 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <BoxView  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-            <SearchBar Grid.Row="0"  CancelButtonColor="Black" PlaceholderColor="Black"  Placeholder="search" VerticalOptions="Center" />
+            <SearchBar TextChanged="SearchBar_TextChanged" Grid.Row="0"  CancelButtonColor="Black" PlaceholderColor="Black"  Placeholder="search" VerticalOptions="Center" />
             <!--<Entry Grid.Row="0" PlaceholderColor="White"  Placeholder="search" TextChanged="SearchBar_OnTextChanged" VerticalOptions="Center" />-->
             <ListView x:Name="MyListView"
                   Grid.Row="1"
                   Margin="10"
                   IsPullToRefreshEnabled="True"
-                  HasUnevenRows="True">
+                  HasUnevenRows="True"
+                  Refreshing="MyListView_Refreshing"
+                  ItemTapped="MyListView_ItemTapped"
+                  ItemSelected="MyListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <Image Source="{Binding Image}" />
-                                <StackLayout HorizontalOptions="StartAndExpand">
-                                    <Label Text="{Binding Name}"
-                                       FontAttributes="Bold" />
-                                    <Label Text="{Binding Detail}"
-                                       TextColor="Gray" />
-                                </StackLayout>
-                                <Label Text="Follow"
-                                   TextColor="Blue"
-                                   VerticalOptions="Center" />
-                            </StackLayout>
+                            <Grid Margin="4,4,4,4">
+                                <Frame 
+                                    Padding="0"
+                                    VerticalOptions="Start"
+                                    HasShadow="True"
+                                    HeightRequest="160">
+                                    <Grid Padding="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="{Binding img}" Aspect="AspectFill"/>
+                                        <Label Grid.Row="1" Margin="10,0" Text="{Binding name}" FontAttributes="Bold" FontSize="Large" HorizontalTextAlignment="Center"/>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
