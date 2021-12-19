@@ -23,16 +23,16 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                 <Image
+                    x:Name="foodImage"
                     Source="{Binding ImageUrl}"
                     HeightRequest="250"
                     Aspect="AspectFill" />
             </StackLayout>
             <StackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="End" Padding="10" Margin="12, 0"
                          HorizontalOptions="FillAndExpand"  BackgroundColor="#80000000" Opacity="0.9">
-                <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" 
+                <Label x:Name="foodName" Text="{Binding Name}" FontSize="18" FontAttributes="Bold" 
                         TextColor="White" HorizontalTextAlignment="Center" 
                         VerticalTextAlignment="Center" />
-                <Label x:Name="foodId" Text="{Binding Id}" TextColor="White"/>
             </StackLayout>
 
             <!--Tab Design-->

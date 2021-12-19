@@ -33,6 +33,6 @@ namespace MonAnNgon.Models
         [JsonProperty("image")]
         public Media[] Image { get; set; }
 
-        public string ImageUrl => "http://172.19.0.1:1337" + Image[0].Url;
+        public string ImageUrl { get; set; }
     }
 }

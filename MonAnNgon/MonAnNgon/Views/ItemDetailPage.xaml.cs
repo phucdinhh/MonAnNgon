@@ -9,25 +9,18 @@ namespace MonAnNgon.Views
     {
         readonly Food food;
         public ItemDetailViewModel test;
+        private Favorite favorFood;
 
         public ItemDetailPage()
         {
             InitializeComponent();
             BindingContext = test = new ItemDetailViewModel();
-
-            Favorite favorFood = new Favorite
-            {
-                FavorId = test.Id,
-                Id = test.Id,
-            };
-
-
         }
 
         public ItemDetailPage(Food food)
         {
             InitializeComponent();
-            foodImage.Source = food.Image;
+            foodImage.Source = food.ImageUrl;
             foodName.Text = food.Name;
             this.food = food;
         }
@@ -74,10 +67,13 @@ namespace MonAnNgon.Views
                 ToolbarItems.Add(DeleteFavoriteBtn);
             };
 
-            Favorite favorFood = new Favorite
+            favorFood = new Favorite
             {
-                FavorId = test.Id,
                 Id = test.Id,
+                Name = test.Name,
+                Ingredients = test.Ingredient,
+                Instruction = test.Instruction,
+                ImageUrl = test.ImageUrl,
             };
 
             Database db = new Database();
@@ -98,12 +94,6 @@ namespace MonAnNgon.Views
                 ToolbarItems.Clear();
                 ToolbarItems.Add(AddFavoriteBtn);
             } 
-
-            Favorite favorFood = new Favorite
-            {
-                FavorId = test.Id,
-                Id = test.Id,
-            };
 
             Database db = new Database();
             if (db.DeleteOneFavorite(favorFood))

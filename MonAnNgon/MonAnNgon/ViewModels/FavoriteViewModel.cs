@@ -5,27 +5,25 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+
 namespace MonAnNgon.ViewModels
 {
-    [QueryProperty(nameof(CategoryId), nameof(CategoryId))]
-    public class FoodsViewModel : BaseViewModel
+    public class FavoriteViewModel : BaseViewModel
     {
         private Food _selectedItem;
         private long _categoryId;
         private bool alreadySetCategoryId;
         private int TapCount { get; set; }
         public ObservableCollection<Food> Foods { get; }
-        public Command LoadItemsIncrementally { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Food> ItemTapped { get; }
 
-        public FoodsViewModel()
+        public FavoriteViewModel()
         {
             Title = "Browse";
             Foods = new ObservableCollection<Food>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            LoadItemsIncrementally = new Command(async () => await ExecuteLoadItemsIncrementallyCommand());
             ItemTapped = new Command<Food>(OnItemSelected);
             AddItemCommand = new Command(OnAddItem);
             TapCount = 0;
@@ -71,11 +69,16 @@ namespace MonAnNgon.ViewModels
             try
             {
                 Foods.Clear();
-                var items = await DataStore.GetFoodsByCategoryIdAsync(_categoryId, true);
+                var items = Db.GetFavorite();
                 foreach (var item in items)
                 {
-                    item.ImageUrl = "http://52.243.101.54:1337" + item.Image[0].Url;
-                    Foods.Add(item);
+                    Foods.Add(new Food { 
+                        Id = item.Id,
+                        Name = item.Name,
+                        Ingredients = item.Ingredients,
+                        Instruction = item.Instruction,
+                        ImageUrl = item.ImageUrl,
+                    });
                 }
             }
             catch (Exception ex)
@@ -85,25 +88,6 @@ namespace MonAnNgon.ViewModels
             finally
             {
                 IsBusy = false;
-            }
-        }
-
-        async Task ExecuteLoadItemsIncrementallyCommand()
-        {
-            try
-            {
-                if (IsBusy || Foods.Count == 0)
-                    return;
-
-                var items = await DataStore.LoadMoreFoodsByCategoryIdAsync(_categoryId);
-                foreach (var item in items)
-                {
-                    Foods.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
             }
         }
 
@@ -134,7 +118,7 @@ namespace MonAnNgon.ViewModels
 
             // This will push the ItemDetailPage onto the navigation stack
             TapCount++;
-            await Shell.Current.GoToAsync($"{nameof(Views.ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(Views.ItemDetailPage)}?{nameof(ItemDetailViewModel.Local)}={true}&{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
             TapCount--;
         }
 

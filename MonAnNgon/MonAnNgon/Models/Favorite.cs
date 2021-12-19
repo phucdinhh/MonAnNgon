@@ -7,8 +7,15 @@ namespace MonAnNgon.Models
 {
     public class Favorite
     {
-        [PrimaryKey, AutoIncrement]
-        public int FavorId { get; set; }
-        public int Id { get; set; }
+        [PrimaryKey]
+        public long Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Ingredients { get; set; }
+
+        public string Instruction { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

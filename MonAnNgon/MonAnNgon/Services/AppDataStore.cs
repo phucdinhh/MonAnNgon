@@ -38,7 +38,13 @@ namespace MonAnNgon.Services
 
         public async Task<Food> GetItemAsync(long id)
         {
-            return await Task.FromResult(foods.FirstOrDefault(s => s.Id == id));
+            var httpClient = new HttpClient();
+            HttpResponseMessage response = await httpClient.GetAsync("http://52.243.101.54:1337/api/foods/" + id);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            Food result = JsonConvert.DeserializeObject<Food>(responseBody);
+            result.ImageUrl = "http://52.243.101.54:1337" + result.Image[0].Url;
+            return await Task.FromResult(result);
         }
 
         public async Task<CategoryExample> GetCategoryAsync(long id)
@@ -56,7 +62,7 @@ namespace MonAnNgon.Services
             try
             {
                 var httpClient = new HttpClient();
-                HttpResponseMessage response = await httpClient.GetAsync("http://172.19.0.1:1337/api/foods?pagination[page]=1&pagination[pageSize]=10");
+                HttpResponseMessage response = await httpClient.GetAsync("http://52.243.101.54:1337/api/foods?pagination[page]=1&pagination[pageSize]=10");
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 FoodApiResult page = JsonConvert.DeserializeObject<FoodApiResult>(responseBody);
@@ -81,7 +87,7 @@ namespace MonAnNgon.Services
             try
             {
                 var httpClient = new HttpClient();
-                HttpResponseMessage response = await httpClient.GetAsync("http://172.19.0.1:1337/api/foods?pagination[page]=1&pagination[pageSize]=10&filters[category]=" + categoryId);
+                HttpResponseMessage response = await httpClient.GetAsync("http://52.243.101.54:1337/api/foods?pagination[page]=1&pagination[pageSize]=10&filters[category]=" + categoryId);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 FoodApiResult page = JsonConvert.DeserializeObject<FoodApiResult>(responseBody);
@@ -103,7 +109,7 @@ namespace MonAnNgon.Services
             {
                 var httpClient = new HttpClient();
                 foodPagination.Page++;
-                HttpResponseMessage response = await httpClient.GetAsync("http://172.19.0.1:1337/api/foods?pagination[page]=" + foodPagination.Page + "&pagination[pageSize]=10&filters[category]=" + categoryId);
+                HttpResponseMessage response = await httpClient.GetAsync("http://52.243.101.54:1337/api/foods?pagination[page]=" + foodPagination.Page + "&pagination[pageSize]=10&filters[category]=" + categoryId);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 FoodApiResult page = JsonConvert.DeserializeObject<FoodApiResult>(responseBody);
@@ -125,7 +131,7 @@ namespace MonAnNgon.Services
             {
                 var httpClient = new HttpClient();
                 foodPagination.Page++;
-                HttpResponseMessage response = await httpClient.GetAsync("http://172.19.0.1:1337/api/foods?pagination[page]=" + foodPagination.Page + "&pagination[pageSize]=10");
+                HttpResponseMessage response = await httpClient.GetAsync("http://52.243.101.54:1337/api/foods?pagination[page]=" + foodPagination.Page + "&pagination[pageSize]=10");
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 FoodApiResult page = JsonConvert.DeserializeObject<FoodApiResult>(responseBody);
@@ -151,7 +157,7 @@ namespace MonAnNgon.Services
             try
             {
                 var httpClient = new HttpClient();
-                HttpResponseMessage response = await httpClient.GetAsync("http://172.19.0.1:1337/api/categories?pagination[page]=1&pagination[pageSize]=10");
+                HttpResponseMessage response = await httpClient.GetAsync("http://52.243.101.54:1337/api/categories?pagination[page]=1&pagination[pageSize]=10");
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 CategoryApiResult page = JsonConvert.DeserializeObject<CategoryApiResult>(responseBody);
@@ -172,7 +178,7 @@ namespace MonAnNgon.Services
             {
                 var httpClient = new HttpClient();
                 categoryPagination.Page++;
-                HttpResponseMessage response = await httpClient.GetAsync("http://172.19.0.1:1337/api/categories?pagination[page]=" + categoryPagination.Page + "&pagination[pageSize]=10");
+                HttpResponseMessage response = await httpClient.GetAsync("http://52.243.101.54:1337/api/categories?pagination[page]=" + categoryPagination.Page + "&pagination[pageSize]=10");
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 CategoryApiResult page = JsonConvert.DeserializeObject<CategoryApiResult>(responseBody);

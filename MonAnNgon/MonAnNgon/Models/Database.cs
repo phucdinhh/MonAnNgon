@@ -15,78 +15,6 @@ namespace MonAnNgon.Models
             {
                 string path = System.IO.Path.Combine(folder, "monanngon.db");
                 var connection = new SQLiteConnection(path);
-                connection.CreateTable<Food>();
-                if(connection.Table<Food>().Count() == 0)
-                {
-                    connection.Insert(new Food
-                    {
-                        Id = 1,
-                        Name = "Pizza",
-                        Ingredients = "- Bông cải xanh cắt thành từng bông nhỏ\n" +
-                                "- Bắp cải tím bào mỏng\n" +
-                                "- Thịt bò: đập dập, thái miếng mỏng\n" +
-                                "- Hải sản\n" +
-                                "- Tỏi băm nhuyễn\n" +
-                                "- Gia vị: (gợi ý, tùy mức độ ăn cay mà bạn có thể gia giảm gia vị) 2 thìa canh ớt bột Hàn Quốc, 3 thìa canh tương ớt, 1 thìa cafe đường, 1 muỗng hạt nêm\n" +
-                                "- Kimchi cắt lát hoặc cắt thành từng miếng vuông nhỏ\n" +
-                                "- Mì gói: bạn có thể dùng mì trứng (cho thời gian nấu nhanh hơn) hoặc mì Hàn Quốc (cần thời gian nấu lâu nhưng sẽ chuẩn vị hơn)",
-                        Instruction = "- Chần mì qua nước sôi đến khi sợi mì vừa chín\n" +
-                                "- Đổ phần nước đó đi. Rồi thêm gói gia vị vào mì, trộn đều. Lưu ý là gói gia vị trong mì thường rất nhiều để làm mì đậm đà. Nhưng bạn chỉ cần dùng 2/3 gói là đã đủ dùng rồi nhé.\n" +
-                                "- Cuối cùng cho phần nước sôi mới vào vừa đủ ngập mì. Vậy là bạn đã có thể dùng rồi đó",
-                        Image = "pizza.jpg"
-                    });
-                    connection.Insert(new Food
-                    {
-                        Id = 2,
-                        Name = "Mì tôm",
-                        Ingredients = "- Bông cải xanh cắt thành từng bông nhỏ\n" +
-                                "- Bắp cải tím bào mỏng\n" +
-                                "- Thịt bò: đập dập, thái miếng mỏng\n" +
-                                "- Hải sản\n" +
-                                "- Tỏi băm nhuyễn\n" +
-                                "- Gia vị: (gợi ý, tùy mức độ ăn cay mà bạn có thể gia giảm gia vị) 2 thìa canh ớt bột Hàn Quốc, 3 thìa canh tương ớt, 1 thìa cafe đường, 1 muỗng hạt nêm\n" +
-                                "- Kimchi cắt lát hoặc cắt thành từng miếng vuông nhỏ\n" +
-                                "- Mì gói: bạn có thể dùng mì trứng (cho thời gian nấu nhanh hơn) hoặc mì Hàn Quốc (cần thời gian nấu lâu nhưng sẽ chuẩn vị hơn)",
-                        Instruction = "- Chần mì qua nước sôi đến khi sợi mì vừa chín\n" +
-                                "- Đổ phần nước đó đi. Rồi thêm gói gia vị vào mì, trộn đều. Lưu ý là gói gia vị trong mì thường rất nhiều để làm mì đậm đà. Nhưng bạn chỉ cần dùng 2/3 gói là đã đủ dùng rồi nhé.\n" +
-                                "- Cuối cùng cho phần nước sôi mới vào vừa đủ ngập mì. Vậy là bạn đã có thể dùng rồi đó",
-                        Image = "noodle.jpg"
-                    });
-                    connection.Insert(new Food
-                    {
-                        Id = 3,
-                        Name = "Salad",
-                        Ingredients = "- Bông cải xanh cắt thành từng bông nhỏ\n" +
-                                "- Bắp cải tím bào mỏng\n" +
-                                "- Thịt bò: đập dập, thái miếng mỏng\n" +
-                                "- Hải sản\n" +
-                                "- Tỏi băm nhuyễn\n" +
-                                "- Gia vị: (gợi ý, tùy mức độ ăn cay mà bạn có thể gia giảm gia vị) 2 thìa canh ớt bột Hàn Quốc, 3 thìa canh tương ớt, 1 thìa cafe đường, 1 muỗng hạt nêm\n" +
-                                "- Kimchi cắt lát hoặc cắt thành từng miếng vuông nhỏ\n" +
-                                "- Mì gói: bạn có thể dùng mì trứng (cho thời gian nấu nhanh hơn) hoặc mì Hàn Quốc (cần thời gian nấu lâu nhưng sẽ chuẩn vị hơn)",
-                        Instruction = "- Chần mì qua nước sôi đến khi sợi mì vừa chín\n" +
-                                "- Đổ phần nước đó đi. Rồi thêm gói gia vị vào mì, trộn đều. Lưu ý là gói gia vị trong mì thường rất nhiều để làm mì đậm đà. Nhưng bạn chỉ cần dùng 2/3 gói là đã đủ dùng rồi nhé.\n" +
-                                "- Cuối cùng cho phần nước sôi mới vào vừa đủ ngập mì. Vậy là bạn đã có thể dùng rồi đó",
-                        Image = "salad.jpg"
-                    });
-                    connection.Insert(new Food
-                    {
-                        Id = 4,
-                        Name = "Hamburger",
-                        Ingredients = "- Bông cải xanh cắt thành từng bông nhỏ\n" +
-                                "- Bắp cải tím bào mỏng\n" +
-                                "- Thịt bò: đập dập, thái miếng mỏng\n" +
-                                "- Hải sản\n" +
-                                "- Tỏi băm nhuyễn\n" +
-                                "- Gia vị: (gợi ý, tùy mức độ ăn cay mà bạn có thể gia giảm gia vị) 2 thìa canh ớt bột Hàn Quốc, 3 thìa canh tương ớt, 1 thìa cafe đường, 1 muỗng hạt nêm\n" +
-                                "- Kimchi cắt lát hoặc cắt thành từng miếng vuông nhỏ\n" +
-                                "- Mì gói: bạn có thể dùng mì trứng (cho thời gian nấu nhanh hơn) hoặc mì Hàn Quốc (cần thời gian nấu lâu nhưng sẽ chuẩn vị hơn)",
-                        Instruction = "- Chần mì qua nước sôi đến khi sợi mì vừa chín\n" +
-                                "- Đổ phần nước đó đi. Rồi thêm gói gia vị vào mì, trộn đều. Lưu ý là gói gia vị trong mì thường rất nhiều để làm mì đậm đà. Nhưng bạn chỉ cần dùng 2/3 gói là đã đủ dùng rồi nhé.\n" +
-                                "- Cuối cùng cho phần nước sôi mới vào vừa đủ ngập mì. Vậy là bạn đã có thể dùng rồi đó",
-                        Image = "hamburger.jpg"
-                    });
-                }
                 connection.CreateTable<Favorite>();
 
                 return true;
@@ -235,14 +163,13 @@ namespace MonAnNgon.Models
         //    }
         //}
 
-        public List<Food> GetOneFood(int foodId)
+        public Favorite GetOneFavorite(long foodId)
         {
             try
             {
                 string path = System.IO.Path.Combine(folder, "monanngon.db");
                 var connection = new SQLiteConnection(path);
-                List<Food> abc = connection.Query<Food>("select * from Food where id = ?", foodId);
-                return abc;
+                return connection.Table<Favorite>().Where(x => x.Id == foodId).FirstOrDefault();
             }
             catch
             {

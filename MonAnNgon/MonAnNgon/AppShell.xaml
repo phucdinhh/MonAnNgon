@@ -91,9 +91,6 @@
     <FlyoutItem Title="Browse" Icon="icon_feed.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Test" Icon="icon_feed.png">
-        <ShellContent Route="Test" ContentTemplate="{DataTemplate local:Test}" />
-    </FlyoutItem>
     <FlyoutItem Title="Favorite" Icon="icon_feed.png">
         <ShellContent Route="FavoritePage" ContentTemplate="{DataTemplate local:FavoritePage}" />
     </FlyoutItem>
