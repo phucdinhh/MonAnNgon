@@ -1,4 +1,5 @@
-﻿using MonAnNgon.Services;
+﻿using MonAnNgon.Models;
+using MonAnNgon.Services;
 using MonAnNgon.Views;
 using System;
 using Xamarin.Forms;
@@ -13,6 +14,8 @@ namespace MonAnNgon
         {
             InitializeComponent();
 
+            Database db = new Database();
+            db.CreateDatabase();
             DependencyService.Register<AppDataStore>();
             MainPage = new AppShell();
         }
