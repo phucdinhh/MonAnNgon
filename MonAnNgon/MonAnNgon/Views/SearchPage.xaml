@@ -11,7 +11,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <BoxView  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-            <SearchBar TextChanged="SearchBar_TextChanged" Grid.Row="0"  CancelButtonColor="Black" PlaceholderColor="Black"  Placeholder="search" VerticalOptions="Center" />
+            <SearchBar TextChanged="SearchBar_TextChanged" Grid.Row="0"  CancelButtonColor="Black" PlaceholderColor="Black"  Placeholder="Tìm kiếm..." VerticalOptions="Center" />
             <!--<Entry Grid.Row="0" PlaceholderColor="White"  Placeholder="search" TextChanged="SearchBar_OnTextChanged" VerticalOptions="Center" />-->
             <ListView x:Name="MyListView"
                   Grid.Row="1"
@@ -24,22 +24,21 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid Margin="4,4,4,4">
-                                <Frame 
-                                    Padding="0"
-                                    VerticalOptions="Start"
-                                    HasShadow="True"
-                                    HeightRequest="160">
-                                    <Grid Padding="0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="2*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Image Source="{Binding img}" Aspect="AspectFill"/>
-                                        <Label Grid.Row="1" Margin="10,0" Text="{Binding name}" FontAttributes="Bold" FontSize="Large" HorizontalTextAlignment="Center"/>
-                                    </Grid>
+                            <StackLayout Padding="20,8,20,8" >
+                                <Frame HasShadow="True">
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Image Source="{Binding img}" HeightRequest="80" Aspect="AspectFit" />
+                                        <Label Text="{Binding name}" 
+                                            LineBreakMode="NoWrap" 
+                                            Style="{DynamicResource ListItemTextStyle}" 
+                                            FontSize="Large" 
+                                            VerticalOptions="Center"
+                                            TextColor="Purple"
+                                            Margin="10,0,0,0"
+                                            FontAttributes="Bold"/>
+                                    </StackLayout>
                                 </Frame>
-                            </Grid>
+                            </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

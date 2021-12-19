@@ -23,7 +23,16 @@ namespace MonAnNgon.Views
         {
             List<Category> contacts = new List<Category>
             {
-               new Category { id = "1", name = "Bánh", img = "CanhThinhDuDu.jpg" },
+                new Category { id = "1", name = "Bánh", img = "CanhThinhDuDu.jpg" },
+                new Category { id = "2", name = "Chiên Xào", img = "green_spinach.jpg" },
+                new Category { id = "3", name = "Nướng", img = "ot_chuong_hai_san.jpg" },
+                new Category { id = "4", name = "Kho", img = "salad.jpg" },
+                new Category { id = "2", name = "Chiên Xào", img = "green_spinach.jpg" },
+                new Category { id = "3", name = "Nướng", img = "ot_chuong_hai_san.jpg" },
+                new Category { id = "4", name = "Kho", img = "salad.jpg" },
+                new Category { id = "2", name = "Chiên Xào", img = "green_spinach.jpg" },
+                new Category { id = "3", name = "Nướng", img = "ot_chuong_hai_san.jpg" },
+                new Category { id = "4", name = "Kho", img = "salad.jpg" },
                 new Category { id = "2", name = "Chiên Xào", img = "green_spinach.jpg" },
                 new Category { id = "3", name = "Nướng", img = "ot_chuong_hai_san.jpg" },
                 new Category { id = "4", name = "Kho", img = "salad.jpg" },
