@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:MonAnNgon.ViewModels" 
              xmlns:model="clr-namespace:MonAnNgon.Models" x:DataType="local:ItemDetailViewModel"
-             x:Class="MonAnNgon.Views.ItemDetailPage"
-             Title="{Binding Name}">
+             x:Class="MonAnNgon.Views.ItemDetailPage">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddFavoriteBtn" IconImageSource="icon_unheart.png"  Clicked="AddFavoriteBtn_Clicked"/>
         <ToolbarItem x:Name="DeleteFavoriteBtn" IconImageSource="icon_heart.png" Clicked="DeleteFavoriteBtn_Clicked"/>
     </ContentPage.ToolbarItems>
+    <Shell.TitleView>
+        <Grid>
+            <Label Text="{Binding Name}" FontSize="Medium" TextColor="White" FontAttributes="Bold"
+                    HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Grid>
+    </Shell.TitleView>
     
     <ScrollView>
         <Grid RowSpacing="0">
@@ -112,19 +117,19 @@
                             <StackLayout Padding="5,10,5,10" x:DataType="model:Food" >
                                 <Frame>
                                     <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                        <Image Source="{Binding Image}" WidthRequest="70"/>
+                                        <Image Source="{Binding ImageUrl}" WidthRequest="70"/>
                                         <Label Text="{Binding Name}" 
-                                    LineBreakMode="NoWrap" 
-                                    Style="{DynamicResource ListItemTextStyle}" 
-                                    FontSize="16" 
-                                    VerticalOptions="Center"
-                                    TextColor="Purple"
-                                    Margin="10,0,0,0"/>
+                                                LineBreakMode="NoWrap" 
+                                                Style="{DynamicResource ListItemTextStyle}" 
+                                                FontSize="16" 
+                                                VerticalOptions="Center"
+                                                TextColor="Purple"
+                                                Margin="10,0,0,0"/>
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer 
-                                        NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:RelatedItemsViewModel}}, Path=ItemTapped}"		
-                                        CommandParameter="{Binding .}">
+                                                    NumberOfTapsRequired="1"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemDetailViewModel}}, Path=ItemTapped}"		
+                                                    CommandParameter="{Binding .}">
                                             </TapGestureRecognizer>
                                         </StackLayout.GestureRecognizers>
                                     </StackLayout>

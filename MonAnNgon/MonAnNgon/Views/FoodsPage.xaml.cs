@@ -28,5 +28,10 @@ namespace MonAnNgon.Views
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SearchPage());
+        }
     }
 }

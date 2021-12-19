@@ -89,7 +89,7 @@ namespace MonAnNgon.ViewModels
                 return;
 
             TapCount++;
-            await Shell.Current.GoToAsync($"{nameof(Views.FoodsPage)}?{nameof(FoodsViewModel.CategoryId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(Views.FoodsPage)}?{nameof(FoodsViewModel.CategoryId)}={item.Id}&{nameof(FoodsViewModel.CategoryName)}={item.Name}");
             TapCount--;
         }
     }

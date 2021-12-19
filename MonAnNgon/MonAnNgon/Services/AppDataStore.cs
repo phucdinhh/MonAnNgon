@@ -194,9 +194,22 @@ namespace MonAnNgon.Services
             }
         }
 
-        public async Task<IEnumerable<Food>> GetRelatedItemsAsync()
+        public async Task<IEnumerable<Food>> GetRelatedItemsAsync(long id, int numberItems)
         {
-            return await Task.FromResult(foods.Take(2));
+            try
+            {
+                var httpClient = new HttpClient();
+                HttpResponseMessage response = await httpClient.GetAsync("http://52.243.101.54:1337/api/foods?pagination[page]=1&pagination[pageSize]=" + numberItems + "&filters[id][$ne]=" + id);
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+                FoodApiResult page = JsonConvert.DeserializeObject<FoodApiResult>(responseBody);
+                return await Task.FromResult(page.Results);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return await Task.FromResult(new List<Food>() { });
+            }
         }
     }
 }

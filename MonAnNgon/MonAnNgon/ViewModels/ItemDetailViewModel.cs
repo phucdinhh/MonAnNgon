@@ -19,6 +19,8 @@ namespace MonAnNgon.ViewModels
         private string instruction;
         private Media[] image;
         private string imageUrl;
+        private int TapCount { get; set; }
+        public Command<Food> ItemTapped { get; }
 
         public long Id { get; set; }
 
@@ -79,6 +81,13 @@ namespace MonAnNgon.ViewModels
             }
         }
 
+        public ItemDetailViewModel()
+        {
+            Relateds = new ObservableCollection<Food>();
+            ItemTapped = new Command<Food>(OnItemSelected);
+            TapCount = 0;
+        }
+
         public async void LoadItemId(long itemId)
         {
             IsBusy = true;
@@ -94,13 +103,11 @@ namespace MonAnNgon.ViewModels
                     Instruction = item.Instruction;
                     ImageUrl = item.ImageUrl;
                     Relateds.Clear();
-                    var relatedFoods = await DataStore.GetItemsAsync(true);
+                    var relatedFoods = await DataStore.GetRelatedItemsAsync(item.Id, 5);
                     foreach (var relatedFood in relatedFoods)
                     {
-                        if (Relateds.Count <= 5 && item.Id != relatedFood.Id)
-                        {
-                            Relateds.Add(relatedFood);
-                        }
+                        relatedFood.ImageUrl = relatedFood.Image[0].Url;
+                        Relateds.Add(relatedFood);
                     }
                 }
                 else
@@ -113,13 +120,11 @@ namespace MonAnNgon.ViewModels
                     Image = item.Image;
                     ImageUrl = item.ImageUrl;
                     Relateds.Clear();
-                    var relatedFoods = await DataStore.GetItemsAsync(true);
+                    var relatedFoods = await DataStore.GetRelatedItemsAsync(item.Id, 5);
                     foreach (var relatedFood in relatedFoods)
                     {
-                        if (Relateds.Count <= 5 && item.Id != relatedFood.Id)
-                        {
-                            Relateds.Add(relatedFood);
-                        }
+                        relatedFood.ImageUrl = "http://52.243.101.54:1337" + relatedFood.Image[0].Url;
+                        Relateds.Add(relatedFood);
                     }
                 }
             }
@@ -132,9 +137,16 @@ namespace MonAnNgon.ViewModels
                 IsBusy = false;
             }
         }
-        public ItemDetailViewModel()
+
+        async void OnItemSelected(Food item)
         {
-            Relateds = new ObservableCollection<Food>();
+            if (item == null || TapCount > 0)
+                return;
+
+            // This will push the ItemDetailPage onto the navigation stack
+            TapCount++;
+            await Shell.Current.GoToAsync($"{nameof(Views.ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            TapCount--;
         }
     }
 }

@@ -8,16 +8,16 @@ using Xamarin.Forms;
 namespace MonAnNgon.ViewModels
 {
     [QueryProperty(nameof(CategoryId), nameof(CategoryId))]
+    [QueryProperty(nameof(CategoryName), nameof(CategoryName))]
     public class FoodsViewModel : BaseViewModel
     {
         private Food _selectedItem;
         private long _categoryId;
-        private bool alreadySetCategoryId;
+        private string _categoryName;
         private int TapCount { get; set; }
         public ObservableCollection<Food> Foods { get; }
         public Command LoadItemsIncrementally { get; }
         public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get; }
         public Command<Food> ItemTapped { get; }
 
         public FoodsViewModel()
@@ -27,7 +27,6 @@ namespace MonAnNgon.ViewModels
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             LoadItemsIncrementally = new Command(async () => await ExecuteLoadItemsIncrementallyCommand());
             ItemTapped = new Command<Food>(OnItemSelected);
-            AddItemCommand = new Command(OnAddItem);
             TapCount = 0;
         }
         public long CategoryId
@@ -39,7 +38,19 @@ namespace MonAnNgon.ViewModels
             set
             {
                 _categoryId = value;
-                //alreadySetCategoryId = true;
+            }
+        }
+
+        public string CategoryName
+        {
+            get
+            {
+                return _categoryName;
+            }
+            set
+            {
+                Title = value;
+                _categoryName = value;
             }
         }
 
@@ -121,10 +132,6 @@ namespace MonAnNgon.ViewModels
                 SetProperty(ref _selectedItem, value);
                 OnItemSelected(value);
             }
-        }
-
-        private void OnAddItem(object obj)
-        {
         }
 
         async void OnItemSelected(Food item)
