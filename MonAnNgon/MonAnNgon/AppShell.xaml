@@ -91,6 +91,9 @@
     <FlyoutItem Title="Browse" Icon="icon_feed.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Favorite" Icon="icon_feed.png">
+        <ShellContent Route="FavoritePage" ContentTemplate="{DataTemplate local:FavoritePage}" />
+    </FlyoutItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <MenuItem Text="Đánh giá" Icon="icon_star.png"

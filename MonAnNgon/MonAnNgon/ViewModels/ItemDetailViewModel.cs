@@ -9,9 +9,11 @@ using Xamarin.Forms;
 namespace MonAnNgon.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
+    [QueryProperty(nameof(Local), nameof(Local))]
     public class ItemDetailViewModel : BaseViewModel
     {
         private long itemId;
+        private bool local;
         private string name;
         private string ingredient;
         private string instruction;
@@ -64,6 +66,18 @@ namespace MonAnNgon.ViewModels
                 LoadItemId(value);
             }
         }
+        
+        public bool Local
+        {
+            get
+            {
+                return local;
+            }
+            set
+            {
+                local = value;
+            }
+        }
 
         public async void LoadItemId(long itemId)
         {
@@ -71,20 +85,41 @@ namespace MonAnNgon.ViewModels
 
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Ingredient = item.Ingredients;
-                Name = item.Name;
-                Instruction = item.Instruction;
-                Image = item.Image;
-                ImageUrl = item.ImageUrl;
-                Relateds.Clear();
-                var relatedFoods = await DataStore.GetItemsAsync(true);
-                foreach (var relatedFood in relatedFoods)
+                if(local)
                 {
-                    if (Relateds.Count <= 5 && item.Id != relatedFood.Id)
+                    var item = Db.GetOneFavorite(itemId);
+                    Id = item.Id;
+                    Ingredient = item.Ingredients;
+                    Name = item.Name;
+                    Instruction = item.Instruction;
+                    ImageUrl = item.ImageUrl;
+                    Relateds.Clear();
+                    var relatedFoods = await DataStore.GetItemsAsync(true);
+                    foreach (var relatedFood in relatedFoods)
                     {
-                        Relateds.Add(relatedFood);
+                        if (Relateds.Count <= 5 && item.Id != relatedFood.Id)
+                        {
+                            Relateds.Add(relatedFood);
+                        }
+                    }
+                }
+                else
+                {
+                    var item = await DataStore.GetItemAsync(itemId);
+                    Id = item.Id;
+                    Ingredient = item.Ingredients;
+                    Name = item.Name;
+                    Instruction = item.Instruction;
+                    Image = item.Image;
+                    ImageUrl = item.ImageUrl;
+                    Relateds.Clear();
+                    var relatedFoods = await DataStore.GetItemsAsync(true);
+                    foreach (var relatedFood in relatedFoods)
+                    {
+                        if (Relateds.Count <= 5 && item.Id != relatedFood.Id)
+                        {
+                            Relateds.Add(relatedFood);
+                        }
                     }
                 }
             }

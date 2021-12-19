@@ -33,5 +33,12 @@ namespace MonAnNgon.ViewModels
         }
 
         public bool IsNotBusy => !IsBusy;
+
+        public Database Db { get; }
+
+        public BaseViewModel()
+        {
+            Db = new Database();
+        }
     }
 }

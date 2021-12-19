@@ -11,6 +11,7 @@ namespace MonAnNgon.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private Food _selectedItem;
+
         private int TapCount { get; set; }
         public ObservableCollection<Food> Items { get; }
         public Command LoadItemsCommand { get; }
