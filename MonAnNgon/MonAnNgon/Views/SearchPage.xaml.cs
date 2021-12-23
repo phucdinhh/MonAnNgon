@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MonAnNgon.Models;
+using MonAnNgon.ViewModels;
 
 namespace MonAnNgon.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchPage : ContentPage
     {
+        readonly SearchViewModel _viewModel;
         public SearchPage()
         {
             InitializeComponent();
+            BindingContext = _viewModel = new SearchViewModel();
             MyListView.ItemsSource = GetList();
         }
 
