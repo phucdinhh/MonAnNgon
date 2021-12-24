@@ -1,4 +1,5 @@
-﻿using MonAnNgon.ViewModels;
+﻿using MonAnNgon.Models;
+using MonAnNgon.ViewModels;
 using MonAnNgon.Views;
 using System;
 using System.Collections.Generic;

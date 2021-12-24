@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MonAnNgon.Views.LoginPage"
+             xmlns:converter="clr-namespace:MonAnNgon.Views.Converter" xmlns:viewmodels="clr-namespace:MonAnNgon.ViewModels" x:DataType="viewmodels:LoginPageViewModel"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             Padding="16">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <FlexLayout Direction="Column" AlignItems="Stretch" JustifyContent="SpaceAround"
+                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical"
+                     HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <Image Source="logo_blogmonngonmoingay.png" HeightRequest="150" />
+            </StackLayout>
+            <StackLayout Orientation="Vertical"
+                     HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <Button Text="Đăng nhập bằng Google" BackgroundColor="#db3236"
+                    Command="{Binding LoginCommand}" />
+                <Button Text="Sử dụng ngay" BackgroundColor="Black"
+                    Command="{Binding UseNowCommand}" />
+            </StackLayout>
+            <StackLayout Orientation="Vertical"
+                     HorizontalOptions="FillAndExpand" VerticalOptions="End">
+                <Image Source="logo_bottom.png" HeightRequest="40" />
+            </StackLayout>
+        </FlexLayout>
+    </ContentPage.Content>
+</ContentPage>

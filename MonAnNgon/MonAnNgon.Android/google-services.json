@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "189532024726",
+    "project_id": "monanngon-7c223",
+    "storage_bucket": "monanngon-7c223.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189532024726:android:be8278492ec8dce1ca37b7",
+        "android_client_info": {
+          "package_name": "com.companyname.monanngon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "189532024726-d5r7fvp7oq3tkk73lkftqbc62366rdif.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.companyname.monanngon",
+            "certificate_hash": "756e8bbff319398aaf7ca830bd533f5055f249bd"
+          }
+        },
+        {
+          "client_id": "189532024726-5fmv5vetp7m2v8vf4a2eqq3331te0nao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcYQMb7D9S8hcBbJdAZ36UC0TZl3G1j5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "189532024726-5fmv5vetp7m2v8vf4a2eqq3331te0nao.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "189532024726-1sac16d158pajreeskojv6das43dg1ge.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.uit.monanngon"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

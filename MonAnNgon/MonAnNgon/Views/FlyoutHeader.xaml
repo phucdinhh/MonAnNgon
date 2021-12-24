@@ -1,14 +1,50 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MonAnNgon.ViewModels"
              x:Class="MonAnNgon.Views.FlyoutHeader"
-             HeightRequest="200">
+             HeightRequest="200"
+             Margin="0"
+             Padding="0">
     <ContentView.Content>
         <StackLayout>
-            <Grid BackgroundColor="Black">
-                <Image Aspect="AspectFill" 
-                   Source="salad.jpg" 
-                   HeightRequest="200" />
+            <Grid Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" Grid.Column="0" Padding="0"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                    <Image Aspect="AspectFill" 
+                           Source="salad.jpg" 
+                           HeightRequest="200" />
+                </StackLayout>
+                <StackLayout x:Name="LoginContainer" Grid.Row="0" Grid.Column="0" VerticalOptions="End" Padding="10"
+                                            HorizontalOptions="FillAndExpand"  BackgroundColor="#80000000" Opacity="0.9">
+                    <Label x:Name="Login" Margin="10,0" Text="Đăng nhập"
+                           TextColor="White" FontAttributes="Bold" FontSize="16" HorizontalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{ Binding GotoLoginCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+                <Grid x:Name="GreetingContainer" IsVisible="False" Grid.Row="0" Grid.Column="0" VerticalOptions="End" Padding="16"
+                            HorizontalOptions="FillAndExpand"  BackgroundColor="#80000000" Opacity="0.9">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="Greeting" Grid.Column="0" Margin="10, 0, 0, 0"
+                           TextColor="White" FontAttributes="Bold" FontSize="16" HorizontalTextAlignment="Start"/>
+                    <Image Source="icon_signout.png" HeightRequest="16" 
+                           Grid.Column="1" HorizontalOptions="End" Margin="0, 0, 10, 0">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                    Command="{ Binding LogoutCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
             </Grid>
         </StackLayout>
     </ContentView.Content>

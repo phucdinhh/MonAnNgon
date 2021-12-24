@@ -76,16 +76,19 @@
     <Shell.FlyoutHeader>
         <local:FlyoutHeader />
     </Shell.FlyoutHeader>
-    
+
+    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" />
+    </ShellItem>
     <!-- 
         When the Flyout is visible this defines the content to display in the flyout.
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem Title="Trang Chủ" Icon="icon_home.png">
-        <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:CategoriesPage}" />
+        <ShellContent Route="CategoriesPage" ContentTemplate="{DataTemplate local:CategoriesPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Favorite" Icon="icon_heart.png">
+    <FlyoutItem Title="Favorite" Icon="icon_favorite.png">
         <ShellContent Route="FavoritePage" ContentTemplate="{DataTemplate local:FavoritePage}" />
     </FlyoutItem>
 

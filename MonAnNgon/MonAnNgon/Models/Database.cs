@@ -16,6 +16,7 @@ namespace MonAnNgon.Models
                 string path = System.IO.Path.Combine(folder, "monanngon.db");
                 var connection = new SQLiteConnection(path);
                 connection.CreateTable<Favorite>();
+                connection.CreateTable<Auth>();
 
                 return true;
             }
@@ -24,36 +25,70 @@ namespace MonAnNgon.Models
                 return false;
             }
         }
+        public Auth getAuth()
+        {
+            try
+            {
+                string path = System.IO.Path.Combine(folder, "monanngon.db");
+                var connection = new SQLiteConnection(path);
+                var data = connection.Table<Auth>();
 
-        //public bool addbook(book book)
-        //{
-        //    try
-        //    {
-        //        string path = system.io.path.combine(folder, "bookstore.db");
-        //        var connection = new sqliteconnection(path);
-        //        connection.insert(book);
-        //        return true;
-        //    }
-        //    catch
-        //    {
+                var d1 = data.FirstOrDefault();
+                if (d1 == null)
+                {
+                    d1 = new Auth()
+                    {
+                        Id = 1,
+                        IsLoggedIn = false,
+                    };
+                    connection.Insert(d1);
+                }
 
-        //        return false;
-        //    }
-        //}
+                return d1;
+            }
+            catch (Exception e)
+            {
 
-        //public List<Book> GetAllBooks()
-        //{
-        //    try
-        //    {
-        //        string path = System.IO.Path.Combine(folder, "bookstore.db");
-        //        var connection = new SQLiteConnection(path);
-        //        return connection.Table<Book>().ToList();
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
+                App.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
+                return new Auth() { IsLoggedIn = false };
+            }
+        }
+
+        public bool AddAuth(Auth auth)
+        {
+            try
+            {
+                string path = System.IO.Path.Combine(folder, "monanngon.db");
+                var connection = new SQLiteConnection(path);
+                var data = connection.Table<Auth>();
+
+                var d1 = data.Where(x => x.Id == auth.Id).FirstOrDefault();
+                if (d1 == null) connection.Insert(auth);
+                else connection.Update(auth);
+                return true;
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
+        public bool DeleteAuth()
+        {
+            try
+            {
+                string path = System.IO.Path.Combine(folder, "monanngon.db");
+                var connection = new SQLiteConnection(path);
+                var data = connection.Table<Auth>();
+                Auth auth = data.FirstOrDefault();
+                connection.Delete(auth);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public bool DeleteOneFavorite(Favorite favorite)
         {
@@ -84,21 +119,6 @@ namespace MonAnNgon.Models
                 return false;
             }
         }
-
-        //public bool UpdateOnebook(Book book)
-        //{
-        //    try
-        //    {
-        //        string path = System.IO.Path.Combine(folder, "bookstore.db");
-        //        var connection = new SQLiteConnection(path);
-        //        connection.Update(book);
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
 
         public bool AddFavorite(Favorite favorite)
         {
