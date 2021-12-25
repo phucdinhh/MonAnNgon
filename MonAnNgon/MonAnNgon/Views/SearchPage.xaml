@@ -4,7 +4,7 @@
              x:Class="MonAnNgon.Views.SearchPage"
              Shell.NavBarIsVisible="False"
              xmlns:local="clr-namespace:MonAnNgon.ViewModels"
-             xmlns:model="clr-namespace:MonAnNgon.Models" 
+             xmlns:model="clr-namespace:MonAnNgon.Models" xmlns:local1="clr-namespace:MonAnNgon.Behaviors"
              x:DataType="local:SearchViewModel">
     <ContentPage.Content>
         <RefreshView x:DataType="local:SearchViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
@@ -15,39 +15,53 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <BoxView  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-                <SearchBar TextChanged="SearchBar_TextChanged" Grid.Row="0"  CancelButtonColor="Black" PlaceholderColor="Black"  Placeholder="Tìm kiếm..." VerticalOptions="Center" />
+                <SearchBar TextChanged="SearchBar_TextChanged"
+                           Grid.Row="0"  
+                           CancelButtonColor="Black"
+                           PlaceholderColor="Black"
+                           Placeholder="Tìm kiếm..."
+                           VerticalOptions="Center"
+                           x:Name="searchFood">
+                    <SearchBar.Behaviors>
+                        <local1:EventToCommandBehavior EventName="TextChanged"
+                                                  Command="{Binding searchCommand}"
+                                                  CommandParameter="{Binding Text, Source={x:Reference searchFood}}"/>
+                    </SearchBar.Behaviors>
+                </SearchBar>
                 <!--<Entry Grid.Row="0" PlaceholderColor="White"  Placeholder="search" TextChanged="SearchBar_OnTextChanged" VerticalOptions="Center" />-->
-                <ListView x:Name="MyListView"
-                  Grid.Row="1"
-                  Margin="10"
-                  IsPullToRefreshEnabled="True"
-                  HasUnevenRows="True"
-                  Refreshing="MyListView_Refreshing"
-                  ItemTapped="MyListView_ItemTapped"
-                  ItemSelected="MyListView_ItemSelected"
-                  ItemsSource="{Binding Foods}">
-                    <ListView.ItemTemplate>
+                <CollectionView x:Name="ItemsListView"
+                                Grid.Row="1"
+                                Margin="10"
+                                ItemsSource="{Binding Foods}"
+                                RemainingItemsThreshold="5" 
+                                RemainingItemsThresholdReachedCommand="{Binding LoadItemsIncrementally}">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Padding="20,8,20,8" x:DataType="model:Food">
-                                    <Frame HasShadow="True">
-                                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                            <Image Source="{Binding ImageUrl}" HeightRequest="80" Aspect="AspectFit" />
-                                            <Label Text="{Binding Name}" 
-                                            LineBreakMode="NoWrap" 
-                                            Style="{DynamicResource ListItemTextStyle}" 
-                                            FontSize="Large" 
-                                            VerticalOptions="Center"
-                                            TextColor="Purple"
-                                            Margin="10,0,0,0"
-                                            FontAttributes="Bold"/>
-                                        </StackLayout>
-                                    </Frame>
-                                </StackLayout>
-                            </ViewCell>
+                            <StackLayout Padding="20,8,20,8" x:DataType="model:Food" >
+                                <Frame>
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Image Source="{Binding ImageUrl}" HeightRequest="70" Aspect="AspectFit"/>
+                                        <Label  Text="{Binding Name}" 
+                                                LineBreakMode="NoWrap" 
+                                                Style="{DynamicResource ListItemTextStyle}" 
+                                                FontSize="18" 
+                                                VerticalOptions="Center"
+                                                TextColor="Purple"
+                                                FontAttributes="Bold"
+                                                Margin="10,0,0,0"/>
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchViewModel}}, Path=ItemTapped}"		
+                                                CommandParameter="{Binding .}"> 
+                                            </TapGestureRecognizer>
+                                        </StackLayout.GestureRecognizers>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
         </RefreshView>
     </ContentPage.Content>

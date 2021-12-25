@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MonAnNgon.Models;
 using MonAnNgon.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace MonAnNgon.Views
 {
@@ -15,6 +16,7 @@ namespace MonAnNgon.Views
     public partial class SearchPage : ContentPage
     {
         readonly SearchViewModel _viewModel;
+        public ObservableCollection<Food> Foods { get; set; }
         public SearchPage()
         {
             InitializeComponent();
@@ -55,6 +57,7 @@ namespace MonAnNgon.Views
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             //MyListView.ItemsSource = GetList(e.NewTextValue);
+            
         }
 
         private void MyListView_Refreshing(object sender, EventArgs e)
