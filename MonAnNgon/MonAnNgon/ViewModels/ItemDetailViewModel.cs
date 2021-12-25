@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MonAnNgon.ViewModels
@@ -21,6 +22,7 @@ namespace MonAnNgon.ViewModels
         private string imageUrl;
         private int TapCount { get; set; }
         public Command<Food> ItemTapped { get; }
+        private bool checkFav;
 
         public long Id { get; set; }
 
@@ -87,6 +89,18 @@ namespace MonAnNgon.ViewModels
             ItemTapped = new Command<Food>(OnItemSelected);
             TapCount = 0;
         }
+        
+        public bool CheckFav
+        {
+            get
+            {
+                return checkFav;
+            }
+            set
+            {
+                checkFav = value;
+            }
+        }
 
         public async void LoadItemId(long itemId)
         {
@@ -94,7 +108,9 @@ namespace MonAnNgon.ViewModels
 
             try
             {
-                if(local)
+                var current = Connectivity.NetworkAccess;
+
+                if (current != NetworkAccess.Internet)
                 {
                     var item = Db.GetOneFavorite(itemId);
                     Id = item.Id;

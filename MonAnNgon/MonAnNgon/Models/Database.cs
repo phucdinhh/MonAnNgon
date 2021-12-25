@@ -177,6 +177,22 @@ namespace MonAnNgon.Models
             }
         }
 
+        public bool CheckFavorite(long foodId)
+        {
+            try
+            {
+                string path = System.IO.Path.Combine(folder, "monanngon.db");
+                var connection = new SQLiteConnection(path);
+                var abc = connection.Table<Favorite>().Where(x => x.Id == foodId).Count();
+                if (abc != 0) return true;
+                else return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         //public bool AddUser(User user)
         //{
         //    try

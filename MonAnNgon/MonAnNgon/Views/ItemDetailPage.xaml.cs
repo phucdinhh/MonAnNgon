@@ -15,6 +15,8 @@ namespace MonAnNgon.Views
         {
             InitializeComponent();
             BindingContext = test = new ItemDetailViewModel();
+            
+
         }
 
         public ItemDetailPage(Food food)
@@ -28,6 +30,13 @@ namespace MonAnNgon.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            Database db = new Database();
+            ToolbarItems.Clear();
+            if (db.CheckFavorite(test.ItemId))
+            {
+                ToolbarItems.Add(DeleteFavoriteBtn);
+            }
+            else ToolbarItems.Add(AddFavoriteBtn);
         }
 
         private void Tab1Clicked(object sender, EventArgs e)
@@ -62,11 +71,6 @@ namespace MonAnNgon.Views
 
         private void AddFavoriteBtn_Clicked(object sender, EventArgs e)
         {
-            if (ToolbarItems.Contains(AddFavoriteBtn)) {
-                ToolbarItems.Clear();
-                ToolbarItems.Add(DeleteFavoriteBtn);
-            };
-
             favorFood = new Favorite
             {
                 Id = test.Id,
@@ -79,6 +83,11 @@ namespace MonAnNgon.Views
             Database db = new Database();
             if (db.AddFavorite(favorFood))
             {
+                if (ToolbarItems.Contains(AddFavoriteBtn)) {
+                    ToolbarItems.Clear();
+                    ToolbarItems.Add(DeleteFavoriteBtn);
+                };
+                test.CheckFav = true;
                 DisplayAlert("Notification", "Added to favorite list!", "OK");
             }
             else
@@ -89,15 +98,24 @@ namespace MonAnNgon.Views
 
         private void DeleteFavoriteBtn_Clicked(object sender, EventArgs e)
         {
-            if (ToolbarItems.Contains(DeleteFavoriteBtn)) 
+            favorFood = new Favorite
             {
-                ToolbarItems.Clear();
-                ToolbarItems.Add(AddFavoriteBtn);
-            } 
+                Id = test.Id,
+                Name = test.Name,
+                Ingredients = test.Ingredient,
+                Instruction = test.Instruction,
+                ImageUrl = test.ImageUrl,
+            };
 
             Database db = new Database();
             if (db.DeleteOneFavorite(favorFood))
             {
+                if (ToolbarItems.Contains(DeleteFavoriteBtn)) 
+                {
+                    ToolbarItems.Clear();
+                    ToolbarItems.Add(AddFavoriteBtn);
+                }
+                test.CheckFav = false;
                 DisplayAlert("Notification", "Delete successful!", "OK");
             }
             else
