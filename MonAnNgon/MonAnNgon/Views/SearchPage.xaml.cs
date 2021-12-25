@@ -19,7 +19,13 @@ namespace MonAnNgon.Views
         {
             InitializeComponent();
             BindingContext = _viewModel = new SearchViewModel();
-            MyListView.ItemsSource = GetList();
+            //MyListView.ItemsSource = GetList();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
         }
 
         private static IEnumerable<Category> GetList(string searchText = null)
@@ -48,23 +54,23 @@ namespace MonAnNgon.Views
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            MyListView.ItemsSource = GetList(e.NewTextValue);
+            //MyListView.ItemsSource = GetList(e.NewTextValue);
         }
 
         private void MyListView_Refreshing(object sender, EventArgs e)
         {
-            MyListView.ItemsSource = GetList();
-            MyListView.EndRefresh();
+            //MyListView.ItemsSource = GetList();
+            //MyListView.EndRefresh();
         }
 
         private void MyListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.Item is Category contact) DisplayAlert("Following", contact.name, "Ok", "Cancel");
+            //if (e.Item is Category contact) DisplayAlert("Following", contact.name, "Ok", "Cancel");
         }
 
         private void MyListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            MyListView.SelectedItem = null;
+            //MyListView.SelectedItem = null;
         }
     }
 }

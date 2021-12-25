@@ -27,7 +27,6 @@ namespace MonAnNgon.ViewModels
         {
             Foods = new ObservableCollection<Food>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            LoadItemsIncrementally = new Command(async () => await ExecuteLoadItemsIncrementallyCommand());
             ItemTapped = new Command<Food>(OnItemSelected);
             TapCount = 0;
         }
@@ -84,7 +83,7 @@ namespace MonAnNgon.ViewModels
             try
             {
                 Foods.Clear();
-                var items = await DataStore.GetFoodsByCategoryIdAsync(_categoryId, true);
+                var items = await DataStore.GetItemsAsync(true);
                 foreach (var item in items)
                 {
                     item.ImageUrl = "http://52.243.101.54:1337" + item.Image[0].Url;
