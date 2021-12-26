@@ -7,41 +7,41 @@
              xmlns:model="clr-namespace:MonAnNgon.Models" xmlns:local1="clr-namespace:MonAnNgon.Behaviors"
              x:DataType="local:SearchViewModel">
     <ContentPage.Content>
-        <RefreshView x:DataType="local:SearchViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <Grid Padding="0" Margin="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="8*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <BoxView  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-                <SearchBar TextChanged="SearchBar_TextChanged"
+
+        <Grid Padding="0" Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="8*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <BoxView  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+            <SearchBar TextChanged="SearchBar_TextChanged"
                            Grid.Row="0"  
                            CancelButtonColor="Black"
                            PlaceholderColor="Black"
                            Placeholder="Tìm kiếm..."
                            VerticalOptions="Center"
                            x:Name="searchFood">
-                    <SearchBar.Behaviors>
-                        <local1:EventToCommandBehavior EventName="TextChanged"
+                <SearchBar.Behaviors>
+                    <local1:EventToCommandBehavior EventName="TextChanged"
                                                   Command="{Binding searchCommand}"
                                                   CommandParameter="{Binding Text, Source={x:Reference searchFood}}"/>
-                    </SearchBar.Behaviors>
-                </SearchBar>
-                <!--<Entry Grid.Row="0" PlaceholderColor="White"  Placeholder="search" TextChanged="SearchBar_OnTextChanged" VerticalOptions="Center" />-->
-                <CollectionView x:Name="ItemsListView"
+                </SearchBar.Behaviors>
+            </SearchBar>
+            <!--<Entry Grid.Row="0" PlaceholderColor="White"  Placeholder="search" TextChanged="SearchBar_OnTextChanged" VerticalOptions="Center" />-->
+            <CollectionView x:Name="ItemsListView"
                                 Grid.Row="1"
                                 Margin="10"
                                 ItemsSource="{Binding Foods}"
                                 RemainingItemsThreshold="5" 
                                 RemainingItemsThresholdReachedCommand="{Binding LoadItemsIncrementally}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Padding="20,8,20,8" x:DataType="model:Food" >
-                                <Frame>
-                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                        <Image Source="{Binding ImageUrl}" HeightRequest="70" Aspect="AspectFit"/>
-                                        <Label  Text="{Binding Name}" 
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="20,8,20,8" x:DataType="model:Food" >
+                            <Frame>
+                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                    <Image Source="{Binding ImageUrl}" HeightRequest="70" Aspect="AspectFit"/>
+                                    <Label  Text="{Binding Name}" 
                                                 LineBreakMode="NoWrap" 
                                                 Style="{DynamicResource ListItemTextStyle}" 
                                                 FontSize="18" 
@@ -49,20 +49,19 @@
                                                 TextColor="Purple"
                                                 FontAttributes="Bold"
                                                 Margin="10,0,0,0"/>
-                                        <StackLayout.GestureRecognizers>
-                                            <TapGestureRecognizer 
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
                                                 NumberOfTapsRequired="1"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchViewModel}}, Path=ItemTapped}"		
-                                                CommandParameter="{Binding .}"> 
-                                            </TapGestureRecognizer>
-                                        </StackLayout.GestureRecognizers>
-                                    </StackLayout>
-                                </Frame>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
-        </RefreshView>
+                                                CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

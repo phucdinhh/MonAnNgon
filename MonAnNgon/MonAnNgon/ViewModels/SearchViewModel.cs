@@ -31,9 +31,10 @@ namespace MonAnNgon.ViewModels
         public SearchViewModel()
         {
             Foods = new ObservableCollection<Food>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            ExecuteLoadItemsCommand();
             LoadItemsIncrementally = new Command(async () => await ExecuteLoadItemsIncrementallyCommand());
             ItemTapped = new Command<Food>(OnItemSelected);
+            
             TapCount = 0;
         }
         public long CategoryId
@@ -83,33 +84,35 @@ namespace MonAnNgon.ViewModels
             }
         }
 
-        async Task ExecuteLoadItemsCommand()
+        void ExecuteLoadItemsCommand()
         {
             IsBusy = true;
-            try
+            Task.Run(async () =>
             {
-                Foods.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
+                try
                 {
-                    item.ImageUrl = "http://52.243.101.54:1337" + item.Image[0].Url;
-                    Foods.Add(item);
+                    Foods.Clear();
+                    var items = await DataStore.GetItemsAsync(true);
+                    foreach (var item in items)
+                    {
+                        item.ImageUrl = "http://52.243.101.54:1337" + item.Image[0].Url;
+                        Foods.Add(item);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
+            });
         }
 
         public void ExecuteLoadSearchItemCommand(string itemName)
         {
             IsBusy = true;
-            Foods.Clear();
             Task.Run(async () =>
             {
                 try
