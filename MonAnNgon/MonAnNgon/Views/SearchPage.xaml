@@ -33,8 +33,7 @@
                                 Grid.Row="1"
                                 Margin="10"
                                 ItemsSource="{Binding Foods}"
-                                RemainingItemsThreshold="5" 
-                                RemainingItemsThresholdReachedCommand="{Binding LoadItemsIncrementally}">
+                                >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="20,8,20,8" x:DataType="model:Food" >
