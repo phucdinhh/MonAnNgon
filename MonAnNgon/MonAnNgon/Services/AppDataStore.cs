@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -15,6 +16,7 @@ namespace MonAnNgon.Services
         private Pagination foodPagination;
         private List<CategoryExample> categories;
         private Pagination categoryPagination;
+        //private object food;
 
         public AppDataStore()
         {
@@ -230,6 +232,70 @@ namespace MonAnNgon.Services
                 Console.WriteLine(ex);
                 return await Task.FromResult(new List<Food>() { });
             }
+        }
+
+        public async Task<IEnumerable<Food>> AddFavoriteAsync(long id, string token)
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                var jsonObject = new { food = id, };
+                var jsonString = JsonConvert.SerializeObject(jsonObject);
+                HttpContent contentPost = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                HttpResponseMessage response = await httpClient.PostAsync("http://52.243.101.54:1337/api/favorites", contentPost);
+                response.EnsureSuccessStatusCode();
+                return await Task.FromResult(new List<Food>() { });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return await Task.FromResult(new List<Food>() { });
+            }
+        }
+
+        public async Task<IEnumerable<Food>> DeleteFavoriteAsync(long id, string token)
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                HttpResponseMessage response = await httpClient.DeleteAsync("http://52.243.101.54:1337/api/favorites/" + id);
+                response.EnsureSuccessStatusCode();
+                return await Task.FromResult(new List<Food>() { });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return await Task.FromResult(new List<Food>() { });
+            }
+        }
+
+        public async Task<FavoriteApiResult> GetFavoriteAsync(string token)
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            HttpResponseMessage response = await httpClient.GetAsync("http://52.243.101.54:1337/api/users/favorite");
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            
+            var result = JsonConvert.DeserializeObject<List<FavoriteApiResult>>(responseBody);
+
+            foreach (var item in result)
+            {
+                Database db = new Database();
+                
+                db.AddFavorite(new Favorite {
+                    Id = item.Id,
+                    Ingredients = item.Ingredients,
+                    Name = item.Name,
+                    Instruction = item.Instruction,
+                    ImageUrl = "http://52.243.101.54:1337" + item.Image[0].Url,
+                });
+            }
+
+            //return await Task.FromResult(result);
+            return result.FirstOrDefault();
         }
     }
 }

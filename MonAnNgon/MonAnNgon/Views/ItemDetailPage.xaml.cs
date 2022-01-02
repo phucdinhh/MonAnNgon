@@ -8,6 +8,7 @@ namespace MonAnNgon.Views
     public partial class ItemDetailPage : ContentPage
     {
         readonly Food food;
+        readonly Auth auth;
         public ItemDetailViewModel test;
         private Favorite favorFood;
 
@@ -69,7 +70,7 @@ namespace MonAnNgon.Views
             stkTab3.IsVisible = true;
         }
 
-        private void AddFavoriteBtn_Clicked(object sender, EventArgs e)
+        private async void AddFavoriteBtn_Clicked(object sender, EventArgs e)
         {
             favorFood = new Favorite
             {
@@ -88,15 +89,20 @@ namespace MonAnNgon.Views
                     ToolbarItems.Add(DeleteFavoriteBtn);
                 };
                 test.CheckFav = true;
-                DisplayAlert("Notification", "Added to favorite list!", "OK");
+
+                Services.AppDataStore DataStore = new Services.AppDataStore();
+                Auth auth = db.getAuth();
+                await DataStore.AddFavoriteAsync(test.Id, auth.Token);
+
+                await DisplayAlert("Thông báo", "Thêm vào yêu thích thành công!", "OK");
             }
             else
             {
-                DisplayAlert("Notification", "Failed!" , "OK");
+                await DisplayAlert("Thông báo", "Thêm vào yêu thích thất bại!", "OK");
             }
         }
 
-        private void DeleteFavoriteBtn_Clicked(object sender, EventArgs e)
+        private async void DeleteFavoriteBtn_Clicked(object sender, EventArgs e)
         {
             favorFood = new Favorite
             {
@@ -116,11 +122,16 @@ namespace MonAnNgon.Views
                     ToolbarItems.Add(AddFavoriteBtn);
                 }
                 test.CheckFav = false;
-                DisplayAlert("Notification", "Delete successful!", "OK");
+
+                Services.AppDataStore DataStore = new Services.AppDataStore();
+                Auth auth = db.getAuth();
+                await DataStore.DeleteFavoriteAsync(test.Id, auth.Token);
+
+                await DisplayAlert("Thông báo", "Xóa khỏi yêu thích thành công!", "OK");
             }
             else
             {
-                DisplayAlert("Notification", "Delete Failed!", "OK");
+                await DisplayAlert("Thông báo", "Xóa khỏi yêu thích thất bại!", "OK");
             }
         }
     }

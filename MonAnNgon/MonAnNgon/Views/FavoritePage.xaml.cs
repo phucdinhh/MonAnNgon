@@ -29,10 +29,9 @@ namespace MonAnNgon.Views
             _viewModel.OnAppearing();
         }
 
-        private void Delete_Clicked(object sender, EventArgs e)
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            Database db = new Database();
-            db.DeleteAllData();
+            Navigation.PushAsync(new SearchPage());
         }
     }
 }

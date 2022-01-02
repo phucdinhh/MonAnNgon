@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 ﻿using SQLite;
 using System;
+using System.Collections.Generic;
 
 namespace MonAnNgon.Models
 {
@@ -34,5 +35,6 @@ namespace MonAnNgon.Models
         public Media[] Image { get; set; }
 
         public string ImageUrl { get; set; }
+
     }
 }

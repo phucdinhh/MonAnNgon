@@ -36,12 +36,13 @@ namespace MonAnNgon.Models
                 var d1 = data.FirstOrDefault();
                 if (d1 == null)
                 {
-                    d1 = new Auth()
+                    Auth d2 = new Auth()
                     {
                         Id = 1,
                         IsLoggedIn = false,
                     };
-                    connection.Insert(d1);
+                    connection.Insert(d2);
+                    return d2;
                 }
 
                 return d1;
@@ -105,21 +106,6 @@ namespace MonAnNgon.Models
             }
         }
 
-        public bool DeleteAllData()
-        {
-            try
-            {
-                string path = System.IO.Path.Combine(folder, "monanngon.db");
-                var connection = new SQLiteConnection(path);
-                connection.DeleteAll<Favorite>();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         public bool AddFavorite(Favorite favorite)
         {
             try
@@ -135,7 +121,6 @@ namespace MonAnNgon.Models
             }
             catch
             {
-
                 return false;
             }
         }

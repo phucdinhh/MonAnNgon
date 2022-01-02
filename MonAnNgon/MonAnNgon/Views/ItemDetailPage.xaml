@@ -6,7 +6,9 @@
              x:Class="MonAnNgon.Views.ItemDetailPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="AddFavoriteBtn" IconImageSource="icon_unheart.png" Clicked="AddFavoriteBtn_Clicked"/>
+        <ToolbarItem x:Name="AddFavoriteBtn" IconImageSource="icon_unheart.png" Clicked="AddFavoriteBtn_Clicked" 
+                     Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemDetailViewModel}}, Path=AddFavorite}"		
+                     CommandParameter="{Binding .}"/>
         <ToolbarItem x:Name="DeleteFavoriteBtn" IconImageSource="icon_heart.png" Clicked="DeleteFavoriteBtn_Clicked"/>
     </ContentPage.ToolbarItems>
     <Shell.TitleView>

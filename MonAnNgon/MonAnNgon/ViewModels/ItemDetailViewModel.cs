@@ -164,5 +164,30 @@ namespace MonAnNgon.ViewModels
             await Shell.Current.GoToAsync($"{nameof(Views.ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
             TapCount--;
         }
+
+        public async void AddFavorite(long itemId)
+        {
+            IsBusy = true;
+
+            try
+            {
+                var current = Connectivity.NetworkAccess;
+
+                if (current == NetworkAccess.Internet)
+                {
+                    Auth auth = new Auth();
+                    string token = auth.Token;
+                    await DataStore.AddFavoriteAsync(itemId, token);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
     }
 }

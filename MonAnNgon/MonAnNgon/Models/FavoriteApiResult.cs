@@ -1,23 +1,27 @@
-﻿using SQLite;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MonAnNgon.Models
 {
-    public class Favorite
+    public class FavoriteApiResult
     {
-        [PrimaryKey]
+        [JsonProperty("id")]
         public long Id { get; set; }
 
+        [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("ingredients")]
         public string Ingredients { get; set; }
 
+        [JsonProperty("instruction")]
         public string Instruction { get; set; }
 
         public string ImageUrl { get; set; }
 
-        //public Media[] Image { get; set; }
+        [JsonProperty("image")]
+        public Media[] Image { get; set; }
     }
 }

@@ -5,8 +5,18 @@
              xmlns:local="clr-namespace:MonAnNgon.ViewModels"
              xmlns:model="clr-namespace:MonAnNgon.Models">
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="Delete" Text="Delete" Clicked="Delete_Clicked"/>
+        <ToolbarItem Text="Example Item"
+                 IconImageSource="search_24px.png"
+                 Order="Primary"
+                 Priority="0" 
+                 Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
+    <Shell.TitleView>
+        <Grid>
+            <Label Text="Yêu thích" FontSize="Medium" TextColor="White" FontAttributes="Bold"
+                    HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Grid>
+    </Shell.TitleView>
     <ContentPage.Content>
         <RefreshView x:DataType="local:FavoriteViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <CollectionView x:Name="ItemsListView" ItemsSource="{Binding Foods}">

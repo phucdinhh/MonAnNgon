@@ -111,9 +111,13 @@ namespace MonAnNgon.ViewModels
                     IsLoggedIn = true,
                 };
                 db.AddAuth(auth);
+                Services.AppDataStore DataStore = new Services.AppDataStore();
+                await DataStore.GetFavoriteAsync(result.Jwt);
                 Application.Current.Properties["token"] = token;
                 Shell.Current.FlyoutHeader = new FlyoutHeader();
                 await Shell.Current.GoToAsync($"//{nameof(CategoriesPage)}");
+
+                
             }
             else
             {
